@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx serve*)",
+      "Bash(node *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npm ci)",
+      "Bash(python -m http.server*)"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "statusMessage": "JS 구문 검증 중...",
+            "command": "node -e \"let r='';process.stdin.on('data',c=>r+=c);process.stdin.on('end',()=>{const d=JSON.parse(r);const f=(d.tool_input&&d.tool_input.file_path)||'';if(f.endsWith('.js')){const {execSync}=require('child_process');try{execSync('node --check '+JSON.stringify(f),{stdio:'pipe'});}catch(e){process.stdout.write(e.stderr.toString());process.exit(1);}}}});\""
+          }
+        ]
+      }
+    ]
+  }
+}

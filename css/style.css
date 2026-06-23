@@ -1,0 +1,75 @@
+/* Tailwind로 표현하기 어려운 처방전 디테일만 커스텀 */
+body { -webkit-tap-highlight-color: transparent; }
+
+/* 컷팅 점선 + 양쪽 원형 노치 */
+.rx-divider {
+  position: relative;
+  height: 1px;
+  margin: 22px -24px;
+  border-top: 2px dashed rgba(4, 120, 87, 0.28);
+}
+.rx-divider::before,
+.rx-divider::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #ECFDF5;
+}
+.rx-divider::before { left: -9px; }
+.rx-divider::after  { right: -9px; }
+
+/* 바코드 장식 */
+.rx-barcode {
+  height: 38px;
+  border-radius: 1px;
+  opacity: 0.18;
+  background: repeating-linear-gradient(
+    to right,
+    #0f2a20 0, #0f2a20 1.5px,
+    transparent 1.5px, transparent 3px,
+    #0f2a20 3px, #0f2a20 4px,
+    transparent 4px, transparent 6.5px,
+    #0f2a20 6.5px, #0f2a20 9px,
+    transparent 9px, transparent 10.5px
+  );
+}
+
+/* 워터마크 모서리 */
+.wm-corner span { white-space: nowrap; }
+
+/* 로딩 스피너 */
+.rx-spinner {
+  width: 38px; height: 38px;
+  border: 3px solid rgba(16, 185, 129, 0.18);
+  border-top-color: #10B981;
+  border-radius: 50%;
+  animation: rx-spin 0.75s linear infinite;
+}
+@keyframes rx-spin { to { transform: rotate(360deg); } }
+
+.fade-up { animation: fadeUp 0.45s ease both; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hidden { display: none !important; }
+
+/* 토스트 */
+.toast {
+  position: fixed; bottom: 2rem; left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: #1a2b22; color: #ECFDF5;
+  font-size: 13px; font-weight: 600;
+  padding: 12px 20px; border-radius: 100px;
+  opacity: 0; transition: opacity 0.2s, transform 0.2s;
+  z-index: 100; max-width: calc(100vw - 2rem); text-align: center;
+}
+.toast-visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

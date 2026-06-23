@@ -1,0 +1,6 @@
+.claude/settings.local.json
+.claude/agents/_workspace/
+.claude/skills/*/references/_workspace/
+node_modules/
+.DS_Store
+Thumbs.db
