@@ -55,11 +55,12 @@ export function showLoading(messages, callback) {
 }
 
 export function renderResult(result) {
-  $('result-menu').textContent = result.menu;
+  $('result-menu').textContent = result.emoji ? `${result.emoji} ${result.menu}` : result.menu;
   $('result-message').textContent = result.message;
   $('rx-dosage').textContent = result.dosage;
   $('rx-sideeffect').textContent = result.sideEffect;
   $('rx-combo').textContent = result.combo;
+  if (result.barcode) $('barcode-num').textContent = result.barcode;
 }
 
 export function toast(msg) {
