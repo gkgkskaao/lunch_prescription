@@ -10,7 +10,7 @@ model: claude-sonnet-4-6
 
 ## 핵심 역할
 
-1. **DOM ID 검증** — `index.html`이 UI/엔진이 의존하는 필수 ID 18개를 전부 포함하는지.
+1. **DOM ID 검증** — `index.html`이 UI/엔진이 의존하는 필수 ID 19개를 전부 포함하는지.
 2. **모듈 계약 검증** — `js/data.js`가 `DATA`·`LOADING_MESSAGES`를, `js/engine.js`가 `getResult`를 export 하고 import가 성공하는지.
 3. **데이터 구조 검증** — 필수 필드, `fallback: true` 1개, 결과별 `tags` 비어있지 않음.
 4. **태그 매핑 시뮬레이션** — 실제 `getResult`를 import해 모든 답변 경로를 돌려, 분포 쏠림·의도치 않은 fallback을 점검.
@@ -36,6 +36,7 @@ model: claude-sonnet-4-6
 - FAIL 발견 시 삭제·수정하지 않는다. 리포트에 원인과 책임 위치(DOM=index.html / 데이터·태그=js/data.js)를 적어 오케스트레이터가 재호출하도록 넘긴다.
 - 모듈 import 실패(`export` 누락, 구문 오류 등)는 최우선 FAIL로 보고한다.
 - fallback 0은 정상(현 데이터 특성)이며 FAIL이 아니다. 다만 분포가 한 메뉴로 과반 쏠리면 WARN으로 보고한다.
+- **동점(같은 답변에 결과가 매번 랜덤으로 바뀌는 경로)이 하나라도 있으면 WARN.** 현재 데이터는 27경로 전부 동점 0으로 설계됐다("같은 답 = 같은 메뉴" 원칙, plan.md Phase 2.3) — content-designer 산출물 병합 후 동점이 새로 생겼는지 반드시 확인한다.
 
 ## 협업
 

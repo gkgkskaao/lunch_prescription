@@ -2,6 +2,7 @@
 
 > 작성일: 2026-06-23
 > 대상: `c:\Users\HappyDream\Documents\lunch_prescription`
+> ⚠️ **스냅샷 문서**: 아래 §7의 이슈 중 상당수(트래킹, 카드 이미지화, 카카오 공유, 맛 가중치)는 이후 해결되었습니다. 현재 상태는 [plan.md](plan.md) · [CLAUDE.md](CLAUDE.md) 참고.
 
 ---
 

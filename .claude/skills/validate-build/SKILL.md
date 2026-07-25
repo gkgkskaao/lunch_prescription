@@ -11,18 +11,18 @@ description: "점심 처방전 산출물이 엔진과 정확히 맞물리는지 
 
 ## 1. 필수 DOM ID (index.html)
 
-엔진/UI가 `getElementById`로 찾는 ID가 `index.html`에 전부 있어야 한다. `js/ui.js`와 `js/app.js`가 의존하는 18개:
+엔진/UI가 `getElementById`로 찾는 ID가 `index.html`에 전부 있어야 한다. `js/ui.js`와 `js/app.js`가 의존하는 19개:
 
 ```
 landing-screen, quiz-screen, loading-screen, result-screen,
 start-btn, progress-text, progress-dots, question-text, options, loading-msg,
-result-menu, result-message, rx-dosage, rx-sideeffect, rx-combo,
+result-menu, result-message, rx-dosage, rx-sideeffect, rx-combo, barcode-num,
 share-kakao, share-insta, retry-btn
 ```
 
 검증:
 ```bash
-for id in landing-screen quiz-screen loading-screen result-screen start-btn progress-text progress-dots question-text options loading-msg result-menu result-message rx-dosage rx-sideeffect rx-combo share-kakao share-insta retry-btn; do
+for id in landing-screen quiz-screen loading-screen result-screen start-btn progress-text progress-dots question-text options loading-msg result-menu result-message rx-dosage rx-sideeffect rx-combo barcode-num share-kakao share-insta retry-btn; do
   grep -q "id=\"$id\"" index.html && echo "OK $id" || echo "MISSING $id";
 done
 ```
@@ -80,7 +80,7 @@ Promise.all([import('./js/data.js'),import('./js/engine.js')]).then(([d,e])=>{
 "
 ```
 
-**현재 기준선:** 18경로 / fallback 0 / {평양냉면:6, 매운갈비찜:7, 치즈돈까스:5}. fallback 0은 정상(현 데이터 특성, design-menu-data 참고). 특정 메뉴로 과반 쏠리면 WARN → 태그 재조정 검토.
+**현재 기준선:** 27경로 / fallback 0 / 동점 0(완전 결정론적 — 결과 18개가 27경로를 겹침 없이 분할, 최대 쏠림 2/27). fallback 0은 정상(현 데이터 특성, design-menu-data 참고). 동점이 하나라도 나오면 WARN → 태그 재조정 검토(설계 원칙: 같은 답변 조합은 항상 같은 메뉴).
 
 ## 5. 카드 이미지화 계약 (Phase 1)
 
@@ -124,10 +124,10 @@ done
 # Validation Report — 점심 처방전
 | 항목 | passed | evidence |
 |------|--------|----------|
-| 필수 DOM ID 18개 | true | 모두 grep 확인 |
+| 필수 DOM ID 19개 | true | 모두 grep 확인 |
 | 모듈 export/import | true | DATA·LOADING_MESSAGES·getResult import 성공 |
 | fallback 1개 | true | results에 fallback:true 1건 |
-| 태그 매핑 | true | paths 18, fallback 0, 분포 균형 |
+| 태그 매핑 | true | paths 27, fallback 0, 동점 0 |
 
 판정: PASS
 ```

@@ -13,7 +13,7 @@ npx serve .          # 또는
 python -m http.server 8080
 ```
 
-빌드 도구·번들러 없음. 의존성은 런타임 CDN뿐(Tailwind, html-to-image via esm.sh).
+빌드 도구·번들러 없음. 의존성은 런타임 CDN뿐(Tailwind, Kakao JS SDK, html-to-image via esm.sh).
 
 ## 구조
 
@@ -33,18 +33,18 @@ js/
 ## 엔진 계약 (깨지 않도록 주의)
 
 **데이터 필드** (`js/data.js`의 `results[]`) — `js/ui.js`가 DOM에 매핑:
-`id`, `tags`, `menu`(→#result-menu), `message`(→#result-message), `dosage`(→#rx-dosage), `sideEffect`(→#rx-sideeffect), `combo`(→#rx-combo), `share`. fallback 항목은 `fallback: true` **정확히 1개**.
+`id`, `tags`, `menu`(→#result-menu), `message`(→#result-message), `dosage`(→#rx-dosage), `sideEffect`(→#rx-sideeffect), `combo`(→#rx-combo), `share`, `emoji`(선택, menu 앞에 붙음), `barcode`(→#barcode-num). fallback 항목은 `fallback: true` **정확히 1개**.
 
-**필수 DOM ID 18개** (`index.html`) — 변경·삭제 금지:
-`landing-screen, quiz-screen, loading-screen, result-screen, start-btn, progress-text, progress-dots, question-text, options, loading-msg, result-menu, result-message, rx-dosage, rx-sideeffect, rx-combo, share-kakao, share-insta, retry-btn`
+**필수 DOM ID 19개** (`index.html`) — 변경·삭제 금지:
+`landing-screen, quiz-screen, loading-screen, result-screen, start-btn, progress-text, progress-dots, question-text, options, loading-msg, result-menu, result-message, rx-dosage, rx-sideeffect, rx-combo, barcode-num, share-kakao, share-insta, retry-btn`
 
-**매칭 로직**: `getResult`는 누적 태그 ∩ 결과 태그의 **교집합 크기**로 점수. 최고점 반환, 동점은 무작위, 0점은 fallback.
+**매칭 로직**: `getResult`는 누적 태그 ∩ 결과 태그의 교집합 점수로 순위를 매김. **q1(맛) 태그는 ×2 가중치**(맛이 1차 기준, 멘탈·예산은 tie-break), q2/q3 태그는 ×1. 최고점 반환, 동점은 무작위, 0점은 fallback.
 
 ## 알려진 특성 (버그 아님)
 
-- **fallback(김치찌개) 도달 불가**: q1(맛) 선택지가 항상 한 결과와 매칭 → 최소 점수 1. fallback은 안전망으로만 유지.
-- **모든 태그 동등 가중치**: 맛(q1)이 멘탈(q2)+예산(q3) 조합에 밀릴 수 있음. 맛 가중치 도입은 plan.md Phase 2.1 예정.
-- **동점 무작위**: 같은 점수 결과가 여럿이면 매번 무작위 → 시뮬레이션 분포가 실행마다 변동.
+- **fallback(김치찌개) 도달 불가**: q1(맛) 선택지가 항상 한 결과와 매칭 → 최소 점수 2(가중치 적용). fallback은 안전망으로만 유지.
+- **맛(q1) 가중치 ×2 적용됨** (Phase 2.1, 2026-06-24 완료).
+- **완전 결정론적 매핑** (Phase 2.3, 2026-07-25 완료): 결과 18개가 27경로(맛3×멘탈3×예산3) 전부를 겹침 없이 나눠 가짐 — 같은 답변 조합은 항상 같은 메뉴. 동점 무작위 로직은 `engine.js`에 안전장치로 남아있지만 현재 데이터에서는 발동하지 않음. 새 결과 추가 시 태그가 기존 결과와 겹치면 다시 동점이 생길 수 있으니 `node`로 27경로 시뮬레이션 후 병합.
 
 ## 코드 규약
 

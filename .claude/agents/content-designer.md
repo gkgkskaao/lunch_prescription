@@ -20,8 +20,8 @@ model: claude-sonnet-4-6
 - **엔진 계약을 깨지 마라.** `js/engine.js`의 `getResult(tags, results)`는 태그 교집합 점수로 결과를 고른다. 필드명(`tags`, `menu`, `message`, `dosage`, `sideEffect`, `combo`, `share`)을 정확히 지킨다. `js/ui.js`가 이 필드를 DOM에 채운다.
 - **`export` 구문 보존.** `js/data.js`는 `export const DATA` / `export const LOADING_MESSAGES` ES Module이다. `js/app.js`가 import 한다.
 - **fallback은 반드시 1개.** `fallback: true` 항목이 없으면 태그 점수 0일 때 엔진이 깨진다. (단, 현 데이터에선 q1이 항상 매칭돼 fallback은 도달 불가 — 안전망으로만 유지.)
-- **태그 교집합을 직접 시뮬레이션하라.** 가능한 모든 답변 경로를 실제 엔진을 import해 돌려(design-menu-data의 스크립트), 분포 쏠림이나 의도치 않은 fallback이 없는지 자체 검증한다.
-- **모든 태그가 동등 가중치임을 인지하라.** 맛(q1)이 멘탈+예산에 밀릴 수 있다. 결과 추가 시 이 특성을 고려한다 (plan.md Phase 2.1 가중치 개선 예정).
+- **태그 교집합을 직접 시뮬레이션하라.** 가능한 모든 답변 경로를 실제 엔진을 import해 돌려(design-menu-data의 스크립트), 동점·분포 쏠림·의도치 않은 fallback이 없는지 자체 검증한다.
+- **q1(맛)은 ×2 가중치**(적용 완료, plan.md Phase 2.1). **현재 데이터는 27경로(맛3×멘탈3×예산3) 전부가 동점 없이 고유 승자를 갖도록 설계됨**(Phase 2.3) — "같은 답변 = 같은 메뉴"가 제품 원칙이다. 결과 추가 시 새 태그가 기존 결과와 겹쳐 동점을 만들지 않는지 반드시 확인한다.
 
 ## 입력/출력 프로토콜
 
