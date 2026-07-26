@@ -34,7 +34,7 @@ export const DATA = {
     // ── 기존 ──
     {
       id: 'pyeongnaengmyeon',
-      tags: ['mild', 'tired', 'broke', 'normal'],
+      tags: ['mild', 'tired', 'broke'], // normal 슬롯은 kimchijjigae에 양도
       emoji: '🍜',
       barcode: '5 9 5 9 · 0 0 0 1 · 1 2 3 0',
       menu: '평양냉면',
@@ -131,7 +131,7 @@ export const DATA = {
     },
     {
       id: 'budae-jjigae',
-      tags: ['greasy', 'tired', 'broke', 'normal'],
+      tags: ['greasy', 'tired', 'broke'], // normal 슬롯은 cvs-dosirak에 양도
       emoji: '🍲',
       barcode: '0 6 2 5 · 1 9 4 5 · 2 0 2 5',
       menu: '부대찌개',
@@ -167,7 +167,7 @@ export const DATA = {
     },
     {
       id: 'malatang',
-      tags: ['spicy', 'survive', 'rich', 'broke'],
+      tags: ['spicy', 'survive', 'rich'], // broke 슬롯은 cvs-ramen에 양도
       emoji: '🫕',
       barcode: '1 2 1 2 · 0 0 0 0 · 9 9 9 9',
       menu: '마라탕',
@@ -250,19 +250,56 @@ export const DATA = {
       combo: '돈까스 소스 리필 (무한)',
       share: '버티는 중엔 왕돈까스 처방받음 🐷 기본기가 제일 든든함 #점심처방전 #왕돈까스 #버티는중엔_기본이_진리',
     },
+    // ── 신규 3차 (김치찌개 fallback→정식 승격 + 편의점 2개, 27경로 재분배) ──
+    {
+      id: 'kimchijjigae',
+      tags: ['mild', 'tired', 'normal'],
+      emoji: '🍲',
+      barcode: '2 3 4 5 · 0 0 0 1 · 6 7 8 9',
+      menu: '김치찌개',
+      message: '맵지도 기름지지도 않은 오늘, 통장도 극단적이지 않음. 딱 한국인 평균값인 날의 점심은 김치찌개임. 평범하다고 낮춰보지 마라 — 매일 먹어도 질리지 않는 게 얼마나 어려운 건줄 알아?',
+      dosage: '뚜껑 열리자마자 공깃밥 추가 주문',
+      sideEffect: '내일도 또 먹고 싶어짐 (무한 반복)',
+      combo: '계란말이 (있으면) + 공깃밥',
+      share: '평범한 날엔 역시 김치찌개 처방받음 🍲 매일 먹어도 질리지 않는 게 어른의 맛 #점심처방전 #김치찌개 #평범한날의_정답',
+    },
+    {
+      id: 'cvs-dosirak',
+      tags: ['greasy', 'tired', 'normal'],
+      emoji: '🍱',
+      barcode: '7 7 7 7 · 1 1 0 0 · 3 3 3 3',
+      menu: '편의점 도시락 세트',
+      message: '배달 쿠폰 있는데 나가기는 귀찮고 기름진 게 당기는 날, 답은 이미 정해져 있음. 편의점 도시락 전자레인지에 돌리고 계산대 앞에서 기다리는 그 1분 30초가 오늘의 점심 준비임.',
+      dosage: '뚜껑 랩 뜯고 전자레인지 1분 30초',
+      sideEffect: '먹다가 에어팟 낀 채로 졸음 (자연발생)',
+      combo: '탄산음료 1캔 (아무거나)',
+      share: '피곤한 날 편의점 도시락 처방받음 🍱 전자레인지 1분 30초가 오늘의 점심 준비 #점심처방전 #편의점도시락 #편의점도_점심이다',
+    },
+    {
+      id: 'cvs-ramen',
+      tags: ['spicy', 'survive', 'broke'],
+      emoji: '🍜',
+      barcode: '0 0 1 1 · 9 9 0 0 · 0 7 0 7',
+      menu: '편의점 컵라면 세트',
+      message: '지갑도 바닥인데 꾸역꾸역 버티는 오늘, 편의점 컵라면에 삼각김밥 하나면 그게 한 끼임. 누가 뭐래도. 뜨거운 물 붓고 3분 기다리는 동안 오늘의 빡침 정리하면 딱 맞음.',
+      dosage: '뜨거운 물 선까지, 정확히 3분 기다리기',
+      sideEffect: '뚜껑으로 저었다가 손 데임 (매년 반복)',
+      combo: '삼각김밥 1개 (참치마요 국룰)',
+      share: '텅장인데 버티는 날 컵라면 처방받음 🍜 3분 기다리는 게 오늘의 명상 #점심처방전 #컵라면 #텅장엔_컵라면이_약이다',
+    },
     // ── fallback ──
     {
       fallback: true,
-      id: 'kimchijjigae',
+      id: 'chikin',
       tags: [],
-      emoji: '🍜',
-      barcode: '1 2 3 4 · 5 6 7 8 · 0 0 0 0',
-      menu: '김치찌개',
-      message: '메뉴 고민하다 점심시간 다 날린 거 실화임? 묻지도 따지지도 말고 김치찌개 가, 한국인 디폴트값엔 실패가 없음.',
-      dosage: '공깃밥 추가는 국룰',
-      sideEffect: '없음 (검증된 안전성)',
-      combo: '계란말이 (있으면)',
-      share: '뭐 먹을지 몰라서 김치찌개 처방받음 🍲 한국인 디폴트값은 실패가 없음 #점심처방전 #김치찌개 #무난한게_최고',
+      emoji: '🍗',
+      barcode: '1 1 1 1 · 9 9 9 9 · 0 0 0 0',
+      menu: '치킨',
+      message: '메뉴 고민하다 점심시간 다 날린 거 실화임? 묻지도 따지지도 말고 치킨 시켜. 맛 불문, 취향 불문, 예산 불문 — 치킨은 거의 실패가 없음. 이건 과학임.',
+      dosage: '양념·후라이드 반반 (국룰)',
+      sideEffect: '콜라 없으면 미완성 (치명적)',
+      combo: '치킨무 + 제로콜라',
+      share: '점심 뭐 먹을지 못 정해서 치킨 처방받음 🍗 치킨은 틀린 적이 없음 (이건 과학) #점심처방전 #치킨 #결정장애의_최종해결사',
     },
   ],
 };
