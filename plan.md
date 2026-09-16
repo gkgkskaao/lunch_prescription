@@ -48,9 +48,9 @@
 |---|---|---|
 | 1 | ~~GA4 속성 생성 → 측정 ID(`G-XXXX`) 발급~~ ✅ 완료 (2026-09-16, `G-J64EWX4K1X`) | 사용자 |
 | 2 | ~~`index.html`에 gtag 스니펫 추가 + 실측정 ID 연결~~ ✅ 완료 (2026-09-16) | Claude |
-| 3 | GA4에서 `share_click`·`image_save`·`result_view`를 주요 이벤트로 지정 | 사용자 |
+| 3 | GA4에서 `share_click`·`image_save`·~~`result_view`~~를 주요 이벤트로 지정 — `result_view` 완료 (2026-09-16), 나머지 둘은 표준 보고서 반영 지연(24~48h)으로 대기 중 | 사용자 |
 | 4 | ~~`og:image` 절대 URL 수정 + `og:url` 추가 (이슈 #7)~~ | ✅ 완료 (2026-09-16) |
-| 5 | 카카오 콘솔 허용 도메인이 `lunch-prescription.vercel.app`만인지 확인 (JS 키가 공개 저장소에 평문) | 사용자 |
+| 5 | ~~카카오 콘솔 허용 도메인이 `lunch-prescription.vercel.app`만인지 확인 (JS 키가 공개 저장소에 평문)~~ ✅ 완료 (2026-09-16, `https://lunch-prescription.vercel.app` 단일 등록 확인) | 사용자 |
 | 6 | ~~`_workspace/` 커밋 여부 결정~~ ✅ 2026-09-11 커밋 · `introduction.md`는 커밋했으나 내용 갱신(12개→21개) 잔여 | 함께 |
 
 **DoD**: ~~실기기로 한 바퀴 → GA4 실시간 보고서에 이벤트 6종 전부 수신~~ ✅ 완료 (2026-09-16, `quiz_start`/`question_answered`/`result_view`/`share_click`/`image_share`/`retry` 전부 확인).
